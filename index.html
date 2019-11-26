@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <style>
+      @font-face {
+        font-family: "Sego";
+        src: url("segoe.ttf");
+      }
+      * {
+        font-family: Sego;
+        padding: 0;
+        margin: 0;
+      }
+      h2,
+      .slideDiv,
+      h3 {
+        text-align: center;
+        color: #fff;
+      }
+      body {
+        background-color: #333;
+      }
+      .slider {
+        -webkit-appearance: none;
+        background-color: #fff;
+        width: 85%;
+        height: 15px;
+      }
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 45%;
+        background-color: #0f73a6;
+        cursor: pointer;
+      }
+      .output {
+        background-color: #0f73a6;
+        color: white;
+        width: 150px;
+        margin: 10px auto;
+        font-size: 2rem;
+        border-radius: 20px;
+      }
+    </style>
+    <title>Slider</title>
+  </head>
+  <body>
+    <header>
+      <h2>My Slider App</h2>
+    </header>
+    <section>
+      <h3>Health</h3>
+      <div class="slideDiv">
+        <input
+          type="range"
+          min="0"
+          max="100"
+          name=""
+          class="slider"
+          id="slider1"
+        />
+        <div class="output" id="output1">50%</div>
+      </div>
+      <h3>Work</h3>
+      <div class="slideDiv">
+        <input
+          type="range"
+          min="0"
+          max="100"
+          name=""
+          class="slider"
+          id="slider2"
+        />
+        <div class="output" id="output2">9%</div>
+      </div>
+      <h3>Play</h3>
+      <div class="slideDiv">
+        <input
+          type="range"
+          min="0"
+          max="100"
+          name=""
+          class="slider"
+          id="slider3"
+        />
+        <div class="output" id="output3">50%</div>
+      </div>
+      <h3>Love</h3>
+      <div class="slideDiv">
+        <input
+          type="range"
+          min="0"
+          max="100"
+          name=""
+          class="slider"
+          id="slider4"
+        />
+        <div class="output" id="output4">50%</div>
+      </div>
+    </section>
+    <script>
+      let initialSliderData = JSON.parse(localStorage.getItem("sliderData"));
+      for (let i = 0; i < 4; i++) {
+        document.getElementById("slider" + (i + 1)).value =
+          initialSliderData[i];
+        document.getElementById("output" + (i + 1)).innerText =
+          initialSliderData[i] + "%";
+      }
+
+      for (let i = 0; i < 4; i++) {
+        document.getElementById("slider" + (i + 1)).oninput = function() {
+          document.getElementById("output" + (i + 1)).innerText =
+            this.value + "%";
+          storeData();
+        };
+      }
+      function storeData() {
+        let data = [];
+        for (let i = 1; i <= 4; i++) {
+          let value = document.getElementById("slider" + i).value;
+          data.push(value);
+        }
+        console.log(data);
+
+        localStorage.setItem("sliderData", JSON.stringify(data));
+      }
+    </script>
+  </body>
+</html>
